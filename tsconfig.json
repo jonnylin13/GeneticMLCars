@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2018",
-    "module": "ES2018",
+    "target": "esnext",
+    "module": "esnext",
     "strict": true,
     "alwaysStrict": true,
     "noUnusedLocals": true,

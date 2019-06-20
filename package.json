@@ -1,7 +1,7 @@
 {
-  "name": "pixi-typescript",
+  "name": "car-evo",
   "version": "0.0.0",
-  "description": "Project setup to hack on pixijs apps with as little transpilation as possible.",
+  "description": "2D car driving agent",
   "main": "pixi-typescript.js",
   "scripts": {
     "start": "parcel index.html",
@@ -14,9 +14,9 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/thlorenz/pixi-typescript.git"
+    "url": "git://github.com/jonnylin13/car-evo.git"
   },
-  "homepage": "https://github.com/thlorenz/pixi-typescript",
+  "homepage": "https://github.com/jonnylin13/car-evo",
   "dependencies": {
     "pixi.js": "~4.8.2"
   },
@@ -27,13 +27,9 @@
   },
   "keywords": [],
   "author": {
-    "name": "Thorsten Lorenz",
-    "email": "thlorenz@gmx.de",
-    "url": "http://thlorenz.com"
-  },
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/thlorenz/pixi-typescript/blob/master/LICENSE"
+    "name": "Jonathan Lin",
+    "email": "jonnylin13@gmail.com",
+    "url": "https://jonnylin13.github.io/"
   },
   "engine": {
     "node": ">=8"
