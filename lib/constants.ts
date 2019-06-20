@@ -3,10 +3,10 @@ export const SETTINGS = {
   renderNeuralNetwork: true
 };
 
-export const PARAMS = {
+export const ALGORITHM = {
   amtToSelect: 10,
-  amtStep: 0.15,
-  amtBred: 25,
+  amtToBreed: 25,
+  stepAmt: 0.15,
   mutationChance: 0.9,
   mutationFactor: 0.15,
   defaultCourse: 'test1',

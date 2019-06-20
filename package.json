@@ -1,7 +1,7 @@
 {
-  "name": "car-evo",
+  "name": "genetic-ml-cars",
   "version": "0.0.0",
-  "description": "2D car driving agent",
+  "description": "2D car training algorithm combining forward propagation and a genetic algorithm.",
   "main": "pixi-typescript.js",
   "scripts": {
     "start": "parcel index.html",
@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "@types/pixi.js": "~4.8.3",
-    "parcel-bundler": "~1.10.3",
+    "parcel-bundler": "^1.12.3",
     "typescript": "~3.1.6"
   },
   "keywords": [],
