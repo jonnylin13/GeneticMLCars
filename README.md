@@ -25,3 +25,4 @@ MIT
 - [An Introduction to Genetic Algorithms](https://www.whitman.edu/Documents/Academics/Mathematics/2014/carrjk.pdf)
 - [sentdex's Practical Machine Learning](https://www.youtube.com/watch?v=OGxgnH8y2NM&list=PLQVvvaa0QuDfKTOs3Keq_kaG2P55YRn5v)
 - [Brain.js](https://github.com/harthur/brain)
+- Many StackOverflow posts which you can find commented in the code
