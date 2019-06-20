@@ -14,6 +14,9 @@ function init(): P.Application {
     backgroundColor: 0xffffff
   });
   document.body.appendChild(app.view);
+  window.onresize = () => {
+    app.renderer.resize(window.innerWidth, window.innerHeight);
+  };
   return app;
 }
 
