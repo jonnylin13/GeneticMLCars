@@ -1,12 +1,12 @@
-import { Line, Point } from '../types/space';
+import { line, point } from '../types/space';
 
 export default class Track {
-  checkpoints: Array<Line> = [];
-  walls: Array<Line> = [];
+  checkpoints: Array<line> = [];
+  walls: Array<line> = [];
 
-  startingPos: Point;
+  startingPos: point;
   startingAngle: number;
-  finishPos: Point;
+  finishPos: point;
 
   constructor(cpData: Array<Array<number>>) {
     this.checkpoints = this.convertCheckpoints(cpData);
@@ -20,7 +20,7 @@ export default class Track {
   }
 
   private convertCheckpoints(cpData: Array<Array<number>>) {
-    let cp: Array<Line> = [];
+    let cp: Array<line> = [];
     for (let line of cpData) {
       cp.push({
         origin: { x: line[0], y: line[1] },
@@ -31,7 +31,7 @@ export default class Track {
   }
 
   private generateWalls() {
-    let walls: Array<Line> = [];
+    let walls: Array<line> = [];
     for (let i = 1; i < this.checkpoints.length; i++) {
       walls.push({
         origin: this.checkpoints[i - 1].origin,
@@ -46,7 +46,7 @@ export default class Track {
     return walls;
   }
 
-  private getCenter(cp: Line): Point {
+  private getCenter(cp: line): point {
     return {
       x: cp.origin.x + (cp.destination.x - cp.origin.x) * 0.5,
       y: cp.origin.y + (cp.destination.y - cp.origin.y) * 0.5

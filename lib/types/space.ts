@@ -1,5 +1,5 @@
-export type Point = { x: number; y: number };
+export type point = { x: number; y: number };
 
-export type Line = { origin: Point; destination: Point };
+export type line = { origin: point; destination: point };
 
-export type Ray = { line: Line; distance: number };
+export type ray = { line: line; distance: number };

@@ -1,4 +1,4 @@
-import { Layer } from '../types/nn';
+import { layer } from '../types/nn';
 
 export default class Brain {
   // Based on Brain.js
@@ -8,7 +8,7 @@ export default class Brain {
 
   // Array of 2d arrays
   // For multiple hidden layers
-  connections: Array<Layer> = [];
+  connections: Array<layer> = [];
 
   constructor(random: boolean = true) {
     this.initWeights(random);
@@ -20,7 +20,7 @@ export default class Brain {
     // For each hidden layer
     for (let i = 1; i < this.topology.length; i++) {
       let currentLayer: number = this.topology[i];
-      let layer: Layer = [];
+      let layer: layer = [];
       for (let j = 0; j < currentLayer; j++) {
         // All the connections to a single node
         let connections: Array<number> = [];
@@ -42,7 +42,7 @@ export default class Brain {
     let output: Array<number> = [];
 
     for (let i in this.connections) {
-      let currentLayer: Layer = this.connections[i];
+      let currentLayer: layer = this.connections[i];
       let outputValues: Array<number> = [];
       for (let j in currentLayer) {
         let sum: number = 0;

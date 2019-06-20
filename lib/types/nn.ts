@@ -1,1 +1,1 @@
-export type Layer = Array<Array<number>>;
+export type layer = Array<Array<number>>;

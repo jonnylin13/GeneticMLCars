@@ -1,11 +1,11 @@
-import { Point, Line, Ray } from '../types/space';
+import { point, line, ray } from '../types/space';
 import Brain from '../ai/brain';
 import Track from './track';
 import Physics from '../util/physics';
 import { ALGORITHM } from '../constants';
 
 export default class Car {
-  pos: Point = { x: 0, y: 0 };
+  pos: point = { x: 0, y: 0 };
   angle: number = 0;
 
   brain: Brain;
@@ -13,8 +13,8 @@ export default class Car {
   health: number = 100;
   timeAlive: number = 0;
   fitness: number = 1;
-  checkpointsLeft: Array<Line> = [];
-  sensors: Array<Ray> = [];
+  checkpointsLeft: Array<line> = [];
+  sensors: Array<ray> = [];
   color: number = 0xffffff * Math.random();
 
   constructor(track: Track) {
@@ -52,7 +52,7 @@ export default class Car {
 
   // Physics functions
 
-  private doesCollideWithWalls(walls: Array<Line>): boolean {
+  private doesCollideWithWalls(walls: Array<line>): boolean {
     // Needs testing
     for (let wall of walls) {
       if (Physics.doesLineCollideWithCircle(wall, this.pos, 10)) return true;
@@ -109,8 +109,8 @@ export default class Car {
     this.setCheckpoints(track);
   }
 
-  private processSensors(walls: Array<Line>): Array<Ray> {
-    let sensors: Array<Ray> = [];
+  private processSensors(walls: Array<line>): Array<ray> {
+    let sensors: Array<ray> = [];
     const angles: Array<number> = [
       Math.PI / 4,
       Math.PI / 2,

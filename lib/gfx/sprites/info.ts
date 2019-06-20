@@ -1,6 +1,6 @@
 import { Sprite, Graphics, Point } from 'pixi.js';
 import Brain from '../../ai/brain';
-import { Ray } from '../../types/space';
+import { ray } from '../../types/space';
 
 export class NeuralNetworkSprite extends Sprite {
   gfx: Graphics;
@@ -63,7 +63,7 @@ export class NeuralNetworkSprite extends Sprite {
 
 export class RaySprite extends Sprite {
   gfx: Graphics;
-  constructor(ray: Ray) {
+  constructor(ray: ray) {
     super();
     this.gfx = new Graphics();
     const pos = RaySprite.calculatePosition(ray);
@@ -80,7 +80,7 @@ export class RaySprite extends Sprite {
     this.addChild(this.gfx);
   }
 
-  static calculatePosition(ray: Ray) {
+  static calculatePosition(ray: ray) {
     return {
       x:
         ray.line.origin.x +

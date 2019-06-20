@@ -1,18 +1,18 @@
-import { Line, Point } from '../types/space';
+import { line, point } from '../types/space';
 
 export default class Physics {
   // For some more help on collision
   // Check out Jeffery Thompson's website
   // http://www.jeffreythompson.org/collision-detection/table_of_contents.php
-  private static isPointInCircle(point: Point, center: Point, radius: number) {
+  private static isPointInCircle(point: point, center: point, radius: number) {
     let dist = (point.x - center.x) ** 2 + (point.y - center.y) ** 2;
     return dist <= radius ** 2;
   }
 
   private static doesPointCollideWithCircle(
-    A: Point,
-    B: Point,
-    center: Point,
+    A: point,
+    B: point,
+    center: point,
     radius: number
   ): boolean {
     if (!this.doesCircleCollideWithBB(A, B, center, radius)) return false;
@@ -27,9 +27,9 @@ export default class Physics {
   }
 
   private static doesCircleCollideWithBB(
-    A: Point,
-    B: Point,
-    center: Point,
+    A: point,
+    B: point,
+    center: point,
     radius: number
   ) {
     // Rewrite this in the future maybe
@@ -47,19 +47,19 @@ export default class Physics {
   }
 
   static doesLineCollideWithCircle(
-    line: Line,
-    center: Point,
+    line: line,
+    center: point,
     radius: number
   ): boolean {
-    const A: Point = line.origin;
-    const B: Point = line.destination;
+    const A: point = line.origin;
+    const B: point = line.destination;
 
     if (this.doesPointCollideWithCircle(A, B, center, radius) === false)
       return false;
 
-    const AB: Point = { x: 0, y: 0 },
-      AC: Point = { x: 0, y: 0 },
-      BC: Point = { x: 0, y: 0 };
+    const AB: point = { x: 0, y: 0 },
+      AC: point = { x: 0, y: 0 },
+      BC: point = { x: 0, y: 0 };
 
     AB.x = B.x - A.x;
     AB.y = B.y - A.y;
@@ -75,15 +75,15 @@ export default class Physics {
 
     // Simple check
     if (
-      this.isPointInCircle(A, C, radius) ||
-      this.isPointInCircle(B, C, radius)
+      this.isPointInCircle(A, center, radius) ||
+      this.isPointInCircle(B, center, radius)
     )
       return true;
     return false;
   }
 
-  static rotateVec2D(point: Point, center: Point, angle: number): Point {
-    const rotated: Point = { x: 0, y: 0 };
+  static rotateVec2D(point: point, center: point, angle: number): point {
+    const rotated: point = { x: 0, y: 0 };
     const cos_a: number = Math.cos(angle);
     const sin_a: number = Math.sin(angle);
 
@@ -94,15 +94,15 @@ export default class Physics {
     return rotated;
   }
 
-  static doLineSegmentsCollide(lineA: Line, lineB: Line) {
+  static doLineSegmentsCollide(lineA: line, lineB: line) {
     // https://gamedev.stackexchange.com/questions/26004/how-to-detect-2d-line-on-line-collision
-    const A: Point = lineA.origin;
-    const B: Point = lineA.origin;
-    const C: Point = lineB.destination;
-    const D: Point = lineB.destination;
-    const AB: Point = { x: 0, y: 0 },
-      AC: Point = { x: 0, y: 0 },
-      AD: Point = { x: 0, y: 0 };
+    const A: point = lineA.origin;
+    const B: point = lineA.origin;
+    const C: point = lineB.destination;
+    const D: point = lineB.destination;
+    const AB: point = { x: 0, y: 0 },
+      AC: point = { x: 0, y: 0 },
+      AD: point = { x: 0, y: 0 };
 
     AB.x = B.x - A.x;
     AB.y = B.y - A.y;
@@ -114,16 +114,16 @@ export default class Physics {
     return (AB.x * AD.y - AB.y * AD.x) * (AB.x * AC.y - AB.y * AC.x) < 0.0;
   }
 
-  static getSegmentCollisionDistance(lineA: Line, lineB: Line): number {
+  static getSegmentCollisionDistance(lineA: line, lineB: line): number {
     if (!this.doLineSegmentsCollide(lineA, lineB)) return 1.0;
 
-    const A: Point = lineA.origin;
-    const B: Point = lineA.destination;
-    const C: Point = lineB.origin;
-    const D: Point = lineB.destination;
+    const A: point = lineA.origin;
+    const B: point = lineA.destination;
+    const C: point = lineB.origin;
+    const D: point = lineB.destination;
 
-    const AB: Point = { x: 0, y: 0 },
-      CD: Point = { x: 0, y: 0 };
+    const AB: point = { x: 0, y: 0 },
+      CD: point = { x: 0, y: 0 };
     AB.x = B.x - A.x;
     AB.y = B.y - A.y;
     CD.x = D.x - C.x;
