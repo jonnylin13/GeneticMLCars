@@ -2,18 +2,20 @@ import * as P from 'pixi.js';
 import { LineSprite, CarSprite } from './gfx/sprites/shapes';
 import { NeuralNetworkSprite, RaySprite } from './gfx/sprites/info';
 import Car from './game/car';
+import { SETTINGS } from './constants';
+import Track from './game/track';
 
 export default class GeneticMLCarsGame {
   private _app: P.Application;
   private _stage: P.Container;
 
-  trackSprite: LineSprite;
-  checkpointSprite: LineSprite;
-  networkSprite: NeuralNetworkSprite;
-  carSprites: Array<CarSprite>;
-  sensorSprites: Array<RaySprite>;
+  trackSprite!: LineSprite;
+  checkpointSprite!: LineSprite;
+  networkSprite!: NeuralNetworkSprite | null;
+  carSprites!: Array<CarSprite>;
+  sensorSprites!: Array<RaySprite>;
 
-  tracking: Car;
+  tracking!: Car;
 
   constructor(app: P.Application) {
     this._app = app;
@@ -25,7 +27,9 @@ export default class GeneticMLCarsGame {
     };
   }
 
-  start(): void {}
+  async start(numCars: number): Promise<boolean> {
+    return new Promise((resolve, reject) => {});
+  }
 
   private setTrack(track: Track) {
     if (this.trackSprite !== null) {
@@ -47,36 +51,88 @@ export default class GeneticMLCarsGame {
     this.sensorSprites = [];
 
     if (this.carSprites.length < cars.length) {
-      let numNeeded = cars.length - this.carSprites.length;
+      const numNeeded = cars.length - this.carSprites.length;
       for (let i = 0; i < numNeeded; i++) {
-        let sprite = new CarSprite(0xffffff * Math.random());
+        const sprite = new CarSprite(0xffffff * Math.random());
         this._stage.addChild(sprite);
         this.carSprites.push(sprite);
       }
     } else if (this.carSprites.length > cars.length) {
       for (let i = 0; i < this.carSprites.length - cars.length; i++) {
-        let sprite = this.carSprites.pop();
+        const sprite = this.carSprites.pop();
         this._stage.removeChild(sprite!);
         sprite!.destroy();
       }
     }
 
     for (let i in cars) {
-      let car = cars[i];
-      let sprite = this.carSprites[i];
-      sprite.position.set(car.position.x, car.position.y);
+      const car = cars[i];
+      const sprite = this.carSprites[i];
+      sprite.position.set(car.pos.x, car.pos.y);
       sprite.rotation = car.angle + Math.PI / 2;
       if (car.color !== sprite.color) {
-        sprite.graphics.clear();
+        sprite.gfx.clear();
         sprite.setColor(car.color);
       }
     }
 
     this.tracking = this.getBestCar(cars);
-    this.updateCameraPosition(this.tracking);
+    this.trackCar(this.tracking);
     this.renderNeuralNetwork(this.tracking);
     this.renderSensors(this.tracking);
   }
 
-  private getBestCar(cars: Array<Car>) {}
+  private getBestCar(cars: Array<Car>) {
+    let best: Car = cars[0];
+    for (let car of cars) {
+      if (car.alive && car.fitness > best.fitness) best = car;
+    }
+
+    if (
+      this.tracking === null ||
+      !this.tracking.alive ||
+      best.fitness - 2 >= this.tracking.fitness
+    ) {
+      this._app.stage.removeChild(this.networkSprite!);
+      this.networkSprite = null;
+      return best;
+    } else {
+      return this.tracking;
+    }
+  }
+
+  private trackCar(tracking: Car) {
+    const zoom = SETTINGS.zoom * 10;
+    this._stage.pivot.set(
+      tracking.pos.x - window.innerWidth / (zoom * 2),
+      tracking.pos.y - window.innerHeight / (zoom * 2)
+    );
+    this._stage.scale.set(zoom, zoom);
+  }
+
+  private renderNeuralNetwork(car: Car) {
+    if (SETTINGS.renderNeuralNetwork) {
+      if (!this.networkSprite) {
+        this.networkSprite = new NeuralNetworkSprite(car.brain);
+        this.networkSprite.position.set(50, 50);
+        this.networkSprite.scale.set(1.5, 1.5);
+        this._app.stage.addChild(this.networkSprite);
+      }
+    } else {
+      if (this.networkSprite) {
+        this._stage.removeChild(this.networkSprite!);
+        this.networkSprite = null;
+      }
+    }
+  }
+
+  private renderSensors(car: Car) {
+    if (car.alive && SETTINGS.renderSensors) {
+      for (let sensor of car.sensors) {
+        const sensorSprite = new RaySprite(sensor);
+        this._stage.addChild(sensorSprite);
+        this.sensorSprites.push(sensorSprite);
+      }
+    }
+  }
 }
