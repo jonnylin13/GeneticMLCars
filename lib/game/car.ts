@@ -97,7 +97,7 @@ export default class Car {
   // Entity functions
   private kill() {
     this.alive = false;
-    this.color = 0xdd0000;
+    this.color = 0x000000;
   }
 
   /**private respawn(track: Track) {

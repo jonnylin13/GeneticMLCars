@@ -68,12 +68,12 @@ export class RaySprite extends Sprite {
     this.gfx = new Graphics();
     const pos = RaySprite.calculatePosition(ray);
 
-    this.gfx.lineStyle(1, 0x026300, 0.7);
+    this.gfx.lineStyle(1, 0xff6300, 0.7);
     this.gfx.moveTo(ray.line.origin.x, ray.line.origin.y);
     this.gfx.lineTo(pos.x, pos.y);
 
     //Remainder of the line
-    this.gfx.lineStyle(1, 0x500005, 0.6);
+    this.gfx.lineStyle(1, 0xff0005, 0.6);
     this.gfx.moveTo(pos.x, pos.y);
     this.gfx.lineTo(ray.line.destination.x, ray.line.destination.y);
 

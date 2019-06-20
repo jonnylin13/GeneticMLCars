@@ -24,5 +24,10 @@ module.exports = {
       { from: 'lib/courses', to: 'courses' },
       { from: 'index.html', to: 'index.html' }
     ])
-  ]
+  ],
+  devServer: {
+    contentBase: path.join(__dirname, 'dist'),
+    compress: true,
+    port: 1234
+  }
 };

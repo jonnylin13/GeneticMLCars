@@ -15,7 +15,7 @@ export class CircleSprite extends Sprite {
 }
 
 export class CarSprite extends Sprite {
-  static HEIGHT: number = 60;
+  static HEIGHT: number = 50;
   static WIDTH: number = 25;
 
   color!: number;
@@ -24,18 +24,18 @@ export class CarSprite extends Sprite {
   constructor(color: number) {
     super();
     this.gfx = new Graphics();
-    this.setColor(color);
+    this.draw(color);
   }
 
-  setColor(color: number) {
+  draw(color: number) {
     this.color = color;
 
     // Styling
-    this.gfx.beginFill(color, 0.5);
+    this.gfx.beginFill(color, 0.2);
     this.gfx.drawRect(0, 0, CarSprite.HEIGHT, CarSprite.WIDTH);
-    this.gfx.lineStyle(1, color);
 
     // Rectangle
+    this.gfx.lineStyle(2, color);
     this.gfx.moveTo(0, 0);
     this.gfx.lineTo(CarSprite.WIDTH, 0);
     this.gfx.lineTo(CarSprite.WIDTH, CarSprite.HEIGHT);

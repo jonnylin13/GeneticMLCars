@@ -15,17 +15,18 @@ export default class Brain {
   }
 
   initWeights(random: boolean) {
-    let previousLayer: number = this.topology[0];
+    let previousLayerAmt: number = this.topology[0];
 
     // For each hidden layer
     for (let i = 1; i < this.topology.length; i++) {
-      let currentLayer: number = this.topology[i];
+      let currentLayerAmt: number = this.topology[i];
       let layer: layer = [];
-      for (let j = 0; j < currentLayer; j++) {
+
+      for (let j = 0; j < currentLayerAmt; j++) {
         // All the connections to a single node
         let connections: Array<number> = [];
 
-        for (let k = 0; k < previousLayer; k++) {
+        for (let k = 0; k < previousLayerAmt; k++) {
           // Each connection from the previous layer gets a random weight
           let val: number = 0;
           if (random) val = Math.random() - Math.random();
@@ -34,7 +35,7 @@ export default class Brain {
         layer.push(connections);
       }
       this.connections.push(layer);
-      previousLayer = currentLayer;
+      previousLayerAmt = currentLayerAmt;
     }
   }
 
@@ -50,7 +51,7 @@ export default class Brain {
           sum += inputValues[k] * currentLayer[j][k];
         }
         outputValues.push(sum);
-        if (parseInt(i) == this.connections.length - 1) {
+        if (parseInt(i) === this.connections.length - 1) {
           output.push(sum);
         }
       }

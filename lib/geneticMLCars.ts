@@ -17,8 +17,9 @@ export default class GeneticMLCarsGame {
   async start(numCars: number): Promise<boolean> {
     let renderer = new Renderer(this._app);
     let trackData: Array<Array<number>> = await TrackLoader.load(
-      './courses/' + SETTINGS.defaultCourse + '.json'
+      'courses/' + SETTINGS.defaultCourse + '.json'
     );
+
     let track = new Track(trackData);
     renderer.setTrack(track);
 
@@ -34,17 +35,17 @@ export default class GeneticMLCarsGame {
     let breeder: Breeder = new Breeder();
 
     this._app.ticker.add(delta => {
-      let allDead: boolean = true;
+      let anyoneAlive: boolean = false;
       for (let car of cars) {
         if (car.alive) {
-          allDead = false;
+          anyoneAlive = true;
           for (let i = 0; i < SETTINGS.speed; i++) {
             car.update(delta, track);
           }
         }
       }
 
-      if (!allDead) {
+      if (!anyoneAlive) {
         cars = breeder.breed(cars, track);
       }
 

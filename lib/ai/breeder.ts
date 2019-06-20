@@ -2,29 +2,33 @@ import Car from '../game/car';
 import Track from '../game/track';
 import Brain from './brain';
 import { ALGORITHM } from '../constants';
-import '../util/arrayDeepCopy';
+import { deepCopy } from '../util/arrayUtil';
 
 export default class Breeder {
-  alphaBrain: Brain | undefined;
+  alphaBrain!: Brain;
   alphaCarFitness: number = -1;
 
   constructor() {}
 
   breed(cars: Array<Car>, track: Track) {
-    let sorted = this.sortByFitness(cars);
-    let spawnList: Array<Car> = [];
+    console.log('Breeding...');
+    const sorted = this.sortByFitness(cars);
+    const spawnList: Array<Car> = [];
+    const bestCar = sorted[0];
 
-    let bestCar = sorted[0];
+    // Check for better fitness
     if (this.alphaCarFitness < bestCar.fitness) {
       this.alphaBrain = bestCar.brain;
       this.alphaCarFitness = bestCar.fitness;
+      console.log('New alpha.');
     }
 
+    // Spawn alpha clones
     if (this.alphaBrain !== undefined) {
       for (let i = 0; i < ALGORITHM.numAlphaClones; i++) {
-        let newCar = new Car(track);
+        const newCar = new Car(track);
         newCar.brain = new Brain(false);
-        newCar.brain.connections = this.alphaBrain.connections.deepCopy();
+        newCar.brain.connections = deepCopy(this.alphaBrain.connections);
         this.mutate(newCar.brain);
         spawnList.push(newCar);
       }
@@ -35,14 +39,14 @@ export default class Breeder {
       totalFitness += sorted[i].fitness;
 
     for (let i = 0; i < ALGORITHM.amtToSelect; i++) {
-      let currentCar = sorted[i];
+      const currentCar = sorted[i];
 
-      let amtToSpawn =
+      const amtToSpawn =
         (currentCar.fitness / totalFitness) * ALGORITHM.amtToBreed;
       for (let j = 0; j < amtToSpawn; j++) {
-        let baby = new Car(track);
+        const baby = new Car(track);
         baby.brain = new Brain(false);
-        baby.brain.connections = currentCar.brain.connections.deepCopy();
+        baby.brain.connections = deepCopy(currentCar.brain.connections);
         this.mutate(baby.brain);
         spawnList.push(baby);
       }

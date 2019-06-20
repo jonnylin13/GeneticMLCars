@@ -12,8 +12,8 @@ export default class Renderer {
   trackSprite!: LineSprite;
   checkpointSprite!: LineSprite;
   networkSprite!: NeuralNetworkSprite | null;
-  carSprites!: Array<CarSprite>;
-  sensorSprites!: Array<RaySprite>;
+  carSprites: Array<CarSprite> = [];
+  sensorSprites: Array<RaySprite> = [];
 
   tracking!: Car;
 
@@ -36,7 +36,7 @@ export default class Renderer {
     this.trackSprite = new LineSprite(track.walls);
     this._stage.addChild(this.trackSprite);
 
-    this.checkpointSprite = new LineSprite(track.checkpoints, 0xfdfdfd);
+    this.checkpointSprite = new LineSprite(track.checkpoints, 0x00ff00);
     this._stage.addChild(this.checkpointSprite);
   }
 
@@ -56,19 +56,22 @@ export default class Renderer {
     } else if (this.carSprites.length > cars.length) {
       for (let i = 0; i < this.carSprites.length - cars.length; i++) {
         const sprite = this.carSprites.pop();
-        this._stage.removeChild(sprite!);
-        sprite!.destroy();
+        if (sprite) {
+          this._stage.removeChild(sprite);
+          sprite.destroy();
+        }
       }
     }
 
     for (let i in cars) {
       const car = cars[i];
       const sprite = this.carSprites[i];
+
       sprite.position.set(car.pos.x, car.pos.y);
       sprite.rotation = car.angle + Math.PI / 2;
       if (car.color !== sprite.color) {
         sprite.gfx.clear();
-        sprite.setColor(car.color);
+        sprite.draw(car.color);
       }
     }
 
@@ -85,7 +88,7 @@ export default class Renderer {
     }
 
     if (
-      this.tracking === null ||
+      this.tracking === undefined ||
       !this.tracking.alive ||
       best.fitness - 2 >= this.tracking.fitness
     ) {

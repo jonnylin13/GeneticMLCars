@@ -1,5 +1,6 @@
 import GeneticMLCars from './lib/geneticMLCars';
 import * as P from 'pixi.js';
+import { ALGORITHM } from './lib/constants';
 
 window.addEventListener('DOMContentLoaded', initGame);
 
@@ -23,7 +24,7 @@ function init(): P.Application {
 function initGame(): void {
   const app = init();
   const game = new GeneticMLCars(app);
-  game.start(20);
+  game.start(ALGORITHM.amtToBreed + ALGORITHM.numAlphaClones);
 }
 
 // @ts-ignore
