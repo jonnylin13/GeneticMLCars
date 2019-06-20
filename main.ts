@@ -23,7 +23,7 @@ function init(): P.Application {
 function initGame(): void {
   const app = init();
   const game = new GeneticMLCars(app);
-  game.start();
+  game.start(20);
 }
 
 // @ts-ignore

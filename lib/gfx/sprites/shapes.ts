@@ -1,5 +1,5 @@
 import { Sprite, Graphics } from 'pixi.js';
-import { Line } from '../../models/space';
+import { line } from '../../types/space';
 
 export class CircleSprite extends Sprite {
   gfx: Graphics;
@@ -53,7 +53,7 @@ export class CarSprite extends Sprite {
 export class LineSprite extends Sprite {
   gfx: Graphics;
 
-  constructor(lines: Array<Line>, color: number = 0x000000) {
+  constructor(lines: Array<line>, color: number = 0x000000) {
     super();
     this.gfx = new Graphics();
     this.gfx.lineStyle(1, color);

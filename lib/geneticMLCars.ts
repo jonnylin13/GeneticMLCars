@@ -1,5 +1,11 @@
 import * as P from 'pixi.js';
 import Renderer from './gfx/renderer';
+import TrackLoader from './util/trackLoader';
+import { SETTINGS } from './constants';
+import Track from './game/track';
+import Breeder from './ai/breeder';
+import Car from './game/car';
+import Brain from './ai/brain';
 
 export default class GeneticMLCarsGame {
   private _app: P.Application;
@@ -9,9 +15,44 @@ export default class GeneticMLCarsGame {
   }
 
   async start(numCars: number): Promise<boolean> {
-    return new Promise((resolve, reject) => {
-      let renderer = new Renderer(this._app);
-      let trackData: Array<Array<number>>;
+    let renderer = new Renderer(this._app);
+    let trackData: Array<Array<number>> = await TrackLoader.load(
+      './courses/' + SETTINGS.defaultCourse + '.json'
+    );
+    let track = new Track(trackData);
+    renderer.setTrack(track);
+
+    // let tracks = await TrackLoader.load('courses/list.json');
+
+    let cars: Array<Car> = [];
+    for (let i = 0; i < numCars; i++) {
+      let car = new Car(track);
+      car.brain = new Brain();
+      cars.push(car);
+    }
+
+    let breeder: Breeder = new Breeder();
+
+    this._app.ticker.add(delta => {
+      let allDead: boolean = true;
+      for (let car of cars) {
+        if (car.alive) {
+          allDead = false;
+          for (let i = 0; i < SETTINGS.speed; i++) {
+            car.update(delta, track);
+          }
+        }
+      }
+
+      if (!allDead) {
+        cars = breeder.breed(cars, track);
+      }
+
+      let input: Array<number> = [];
+      for (let sensor of cars[0].sensors) input.push(sensor.distance);
+
+      renderer.updateCars(cars);
     });
+    return Promise.resolve(true);
   }
 }

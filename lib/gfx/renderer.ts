@@ -27,7 +27,7 @@ export default class Renderer {
     };
   }
 
-  private setTrack(track: Track) {
+  setTrack(track: Track) {
     if (this.trackSprite !== null) {
       this._stage.removeChild(this.trackSprite);
       this._stage.removeChild(this.checkpointSprite);
@@ -40,7 +40,7 @@ export default class Renderer {
     this._stage.addChild(this.checkpointSprite);
   }
 
-  private updateCars(cars: Array<Car>) {
+  updateCars(cars: Array<Car>) {
     this.sensorSprites.forEach(sprite => {
       this._stage.removeChild(sprite);
     });

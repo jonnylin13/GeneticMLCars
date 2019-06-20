@@ -100,14 +100,14 @@ export default class Car {
     this.color = 0xdd0000;
   }
 
-  private respawn(track: Track) {
+  /**private respawn(track: Track) {
     this.health = 100;
     this.timeAlive = 0;
     this.fitness = 0;
     this.color = 0xffffff * Math.random();
     this.alive = true;
     this.setCheckpoints(track);
-  }
+  }*/
 
   private processSensors(walls: Array<line>): Array<ray> {
     let sensors: Array<ray> = [];
