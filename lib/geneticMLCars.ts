@@ -1,6 +1,6 @@
 import * as P from 'pixi.js';
 
-export default class CarBrainGame {
+export default class GeneticMLCarsGame {
   private _app: P.Application;
 
   constructor(app: P.Application) {

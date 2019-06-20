@@ -1,4 +1,4 @@
-import CarBrainGame from './lib/car-brain';
+import GeneticMLCars from './lib/geneticMLCars';
 import * as P from 'pixi.js';
 
 window.addEventListener('DOMContentLoaded', initGame);
@@ -19,7 +19,7 @@ function init(): P.Application {
 
 function initGame(): void {
   const app = init();
-  const game = new CarBrainGame(app);
+  const game = new GeneticMLCars(app);
   game.start();
 }
 

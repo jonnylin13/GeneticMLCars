@@ -1,7 +1,7 @@
 import { Point, Line, Ray } from '../types/space';
 import Brain from '../ai/brain';
 import Track from './track';
-import Physics from '../physics';
+import Physics from '../util/physics';
 
 export default class Car {
   pos: Point = { x: 0, y: 0 };
@@ -32,7 +32,7 @@ export default class Car {
   private setCheckpoints(track: Track) {
     this.checkpointsLeft = track.checkpoints.slice(
       1,
-      course.checkpoints.length - 1
+      track.checkpoints.length - 1
     );
   }
 

@@ -1,4 +1,4 @@
-# car-brain
+# GeneticMLCars
 
 An experimental genetic machine learning algorithm for unsupervised learning (car on a track).
 
