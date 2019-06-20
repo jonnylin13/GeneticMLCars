@@ -1,6 +1,6 @@
 import { Point, Line, Ray } from '../types/space';
 import Brain from '../ai/brain';
-import Course from '../game/course';
+import Track from './track';
 import Physics from '../physics';
 
 export default class Car {
@@ -18,18 +18,19 @@ export default class Car {
   // Assign a random greyscale color
   color: number = 0xffffff * Math.random();
 
-  constructor(course: Course) {
-    this.setCourse(course);
+  constructor(track: Track) {
+    this.setTrack(track);
+    this.brain = new Brain(true);
   }
 
-  private setCourse(course: Course) {
-    this.setCheckpoints(course);
-    this.pos = { x: course.startingPos.x, y: course.startingPos.y };
-    this.angle = course.startingAngle;
+  private setTrack(track: Track) {
+    this.setCheckpoints(track);
+    this.pos = { x: track.startingPos.x, y: track.startingPos.y };
+    this.angle = track.startingAngle;
   }
 
-  private setCheckpoints(course: Course) {
-    this.checkpointsLeft = course.checkpoints.slice(
+  private setCheckpoints(track: Track) {
+    this.checkpointsLeft = track.checkpoints.slice(
       1,
       course.checkpoints.length - 1
     );
@@ -38,6 +39,8 @@ export default class Car {
   private processCheckpoints() {
     let i: number = 0;
     // We are removing checkpoints, so we cannot use a cached index
-    while (i < this.checkpointsLeft.length) {}
+    while (i < this.checkpointsLeft.length) {
+      let cp = this.checkpointsLeft[i];
+    }
   }
 }

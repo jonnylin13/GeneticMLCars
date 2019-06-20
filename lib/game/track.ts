@@ -1,6 +1,6 @@
 import { Line, Point } from '../types/space';
 
-export default class Course {
+export default class Track {
   checkpoints: Array<Line> = [];
   walls: Array<Line> = [];
 
