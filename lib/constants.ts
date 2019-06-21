@@ -2,7 +2,7 @@ export const SETTINGS = {
   castRays: true,
   renderNeuralNetwork: true,
   renderSensors: true,
-  defaultCourse: 'course1',
+  defaultCourse: 'course2',
   speed: 1,
   zoom: 0.25
 };
