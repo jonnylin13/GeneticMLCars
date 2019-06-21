@@ -32,7 +32,7 @@ export default class Track {
 
   private generateWalls() {
     let walls: Array<line> = [];
-    for (let i = 1; i < this.checkpoints.length; i++) {
+    for (let i = 1; i < this.checkpoints.length; ++i) {
       walls.push({
         origin: this.checkpoints[i - 1].origin,
         destination: this.checkpoints[i].origin

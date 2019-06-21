@@ -1,6 +1,6 @@
 import * as P from 'pixi.js';
 import { LineSprite, CarSprite } from '../gfx/sprites/shapes';
-import { NeuralNetworkSprite, RaySprite } from '../gfx/sprites/info';
+import { NeuralNetworkSprite, RaySprite } from './sprites/debug';
 import Car from '../game/car';
 import { SETTINGS } from '../constants';
 import Track from '../game/track';

@@ -71,7 +71,7 @@ export default class Physics {
     const scalar1 = AB.x * AC.x + AB.y * AC.y;
     const scalar2 = -AB.x * BC.x + -AB.y * BC.y;
 
-    if (scalar1 >= 0 && scalar2 > -0) return true;
+    if (scalar1 >= 0 && scalar2 >= 0) return true;
 
     // Simple check
     if (
@@ -96,20 +96,20 @@ export default class Physics {
 
   static doLineSegmentsCollide(lineA: line, lineB: line) {
     // https://gamedev.stackexchange.com/questions/26004/how-to-detect-2d-line-on-line-collision
-    const A: point = lineA.origin;
-    const B: point = lineA.origin;
-    const C: point = lineB.destination;
-    const D: point = lineB.destination;
-    const AB: point = { x: 0, y: 0 },
-      AC: point = { x: 0, y: 0 },
-      AD: point = { x: 0, y: 0 };
+    let A = lineA.origin;
+    let B = lineA.destination;
+    let C = lineB.origin;
+    let D = lineB.destination;
+    let AC: point = { x: 0, y: 0 },
+      AD: point = { x: 0, y: 0 },
+      AB: point = { x: 0, y: 0 };
 
     AB.x = B.x - A.x;
     AB.y = B.y - A.y;
-    AC.x = A.x - C.x;
-    AC.y = A.y - C.y;
     AD.x = D.x - A.x;
     AD.y = D.y - A.y;
+    AC.x = C.x - A.x;
+    AC.y = C.y - A.y;
 
     return (AB.x * AD.y - AB.y * AD.x) * (AB.x * AC.y - AB.y * AC.x) < 0.0;
   }
@@ -117,17 +117,18 @@ export default class Physics {
   static getSegmentCollisionDistance(lineA: line, lineB: line): number {
     if (!this.doLineSegmentsCollide(lineA, lineB)) return 1.0;
 
-    const A: point = lineA.origin;
-    const B: point = lineA.destination;
-    const C: point = lineB.origin;
-    const D: point = lineB.destination;
+    const A = lineA.origin;
+    const B = lineA.destination;
+    const C = lineB.origin;
+    const D = lineB.destination;
 
-    const AB: point = { x: 0, y: 0 },
+    let AB: point = { x: 0, y: 0 },
       CD: point = { x: 0, y: 0 };
+
     AB.x = B.x - A.x;
     AB.y = B.y - A.y;
     CD.x = D.x - C.x;
-    CD.y = D.y - D.x;
+    CD.y = D.y - C.y;
 
     return (
       -(A.x * CD.y - C.x * CD.y - CD.x * A.y + CD.x * C.y) /

@@ -20,7 +20,7 @@ export default class Breeder {
     if (this.alphaCarFitness < bestCar.fitness) {
       this.alphaBrain = bestCar.brain;
       this.alphaCarFitness = bestCar.fitness;
-      console.log('New alpha.');
+      console.log('New alpha: ' + bestCar.fitness);
     }
 
     // Spawn alpha clones
@@ -51,7 +51,6 @@ export default class Breeder {
         spawnList.push(baby);
       }
     }
-
     return spawnList;
   }
 

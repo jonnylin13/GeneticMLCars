@@ -32,9 +32,9 @@ export class CarSprite extends Sprite {
 
     // Styling
     this.gfx.beginFill(color, 0.2);
-    this.gfx.drawRect(0, 0, CarSprite.HEIGHT, CarSprite.WIDTH);
+    this.gfx.drawRect(0, 0, CarSprite.WIDTH, CarSprite.HEIGHT);
 
-    // Rectangle
+    // Outline
     this.gfx.lineStyle(2, color);
     this.gfx.moveTo(0, 0);
     this.gfx.lineTo(CarSprite.WIDTH, 0);

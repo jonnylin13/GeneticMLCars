@@ -66,21 +66,21 @@ export class RaySprite extends Sprite {
   constructor(ray: ray) {
     super();
     this.gfx = new Graphics();
-    const pos = RaySprite.calculatePosition(ray);
+    const pos = this.calculateCollisionPoint(ray);
 
     this.gfx.lineStyle(1, 0xff6300, 0.7);
     this.gfx.moveTo(ray.line.origin.x, ray.line.origin.y);
     this.gfx.lineTo(pos.x, pos.y);
 
     //Remainder of the line
-    this.gfx.lineStyle(1, 0xff0005, 0.6);
+    this.gfx.lineStyle(1, 0x000000, 0.2);
     this.gfx.moveTo(pos.x, pos.y);
     this.gfx.lineTo(ray.line.destination.x, ray.line.destination.y);
 
     this.addChild(this.gfx);
   }
 
-  static calculatePosition(ray: ray) {
+  private calculateCollisionPoint(ray: ray) {
     return {
       x:
         ray.line.origin.x +
