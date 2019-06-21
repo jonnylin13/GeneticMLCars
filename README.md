@@ -3,6 +3,7 @@
 An experimental genetic machine learning algorithm for unsupervised learning (car on a track).
 
 - Uses genetic algorithm to select the most fit networks
+- View the [demo](https://jonnylin13.github.io/GeneticMLCars)
 
 ## Installation
 
